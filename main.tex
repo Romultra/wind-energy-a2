@@ -1,0 +1,128 @@
+\documentclass[12pt,oneside,a4paper,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2cm,headheight=20pt,includeheadfoot]{geometry}
+\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.5pt}
+\setlength{\headsep}{9pt}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage[framed, numbered]{matlab-prettifier}
+\usepackage{changepage}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tocloft}
+%Change numbers to letters
+%\renewcommand\thesubsection{\alph{subsection}}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{lscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage[english]{nomencl}
+\usepackage{xcolor}
+\usepackage{lipsum}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage[section]{placeins}
+\usepackage{siunitx}
+\setlength{\marginparwidth}{2cm}
+\usepackage{todonotes}
+\usepackage{wrapfig}
+\usepackage{nicefrac}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{tikz}
+
+% --- set footer and header ---
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{Page \thepage\ of \pageref{LastPage}}
+
+\setlength{\parindent}{2em}
+\title{Aerodynamics of wind turbine rotors} % to reference as \title, dont use \maketitle
+\makeatletter\let\Title\@title\makeatother
+
+\lstset{language=Matlab,
+style=Matlab-editor,
+basicstyle=\normalsize\mlttfamily,
+numbers=left,
+numberstyle={\scriptsize\color{black}},			% size of the numbers
+numbersep=0.5cm											
+}
+
+\newlist{steps}{enumerate}{1}
+\setlist[steps, 1]{leftmargin=1.5cm,label = Step \arabic*:}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+%\lhead{\Title}
+
+\lhead{\Title}
+\rfoot{\includegraphics[height=1.25cm]{root/logo.pdf}} % right header logo
+\setlength\headheight{16pt}
+\setlength{\footskip}{50pt}
+\lhead{\Title} %rightH title
+\cfoot{\thepage}
+
+% --- End of page settings ---
+
+\lstdefinestyle{MatlabStyle}{
+    language=Matlab,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    frame=single
+}
+
+
+\begin{document}
+\titlespacing{\section}{0pt}{*2}{*0.5}
+\pagenumbering{roman} 
+\input{sources/0_frontpage.tex}
+
+\newpage
+\doublespacing
+%\addcontentsline{toc}{section}{Table of Contents}
+\renewcommand{\baselinestretch}{1}\normalsize
+\tableofcontents
+\singlespacing
+\thispagestyle{fancy} % force page style
+
+%\newpage
+%\addcontentsline{toc}{section}{List of Figures}
+%\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+%\listoffigures
+%\thispagestyle{fancy}
+
+\newpage
+\raggedbottom
+\pagenumbering{arabic}
+
+\input{part_1}
+\input{part_2}
+
+\newpage
+\appendix
+
+%\input{appendix}
+\label{ch6}
+
+
+
+\end{document}
