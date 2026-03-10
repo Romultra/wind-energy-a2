@@ -121,20 +121,21 @@ These two components define the velocity triangle shown in Figure~\ref{fig:q2}. 
     \begin{tikzpicture}[scale=1.5, x=1cm, y=1cm]
         
         % 1. Define main coordinates for the velocity triangle
-        \coordinate (Origin) at (0,0);
-        %\coordinate (Rotational) at (4,0);
-        %\coordinate (Relative) at (4,0.7);
-        
+        % Physical values (in units of V_0): rotational = 6, axial = 0.7
+        \def\scalefactor{5/6}  % drawing scale to keep figure compact
+        \def\rotational{6}     % omega*R*(1+a') = 6 V_0
+        \def\axial{0.7}        % V_0*(1-a) = 0.7 V_0
+
         % Twist angle
         \def\twistangle{-2.65}
-        
+
         % 2. Draw the Rotor Plane
         \draw[] (4,0) -- (-6,0) node[below right] {Rotor Plane};
-        
+
         % 3. Draw the Airfoil and Chord Line (Rotated by \beta)
         \begin{scope}[rotate=\twistangle]
             % Chord line
-            \draw[dashed, gray] (-6, 0) node[above right, text=gray] {Chord Line} -- (6, 0) coordinate (Chord);
+            \draw[dashed, gray] (-6, 0) node[above right, text=darkgray] {Chord Line} -- (5, 0) coordinate (Chord);
             
             % Generic airfoil shape
             \draw[thick, fill=gray!10] (0, 0) coordinate (leading)
@@ -143,22 +144,25 @@ These two components define the velocity triangle shown in Figure~\ref{fig:q2}. 
         \end{scope}
 
         % 4. Draw the Velocity Triangle
-        \draw[<-, thick, blue] (leading) -- ++(6*5/6,0) coordinate (Rotational) node[midway, above] {$\omega R (1+a')$};
-        \draw[<-, thick, red] (leading) -- ++(0,-0.7*5/6) node[ left] {$V_{0}(1-a)$};
-        \draw[<-, thick, green!60!black] (leading) -- ++(6*5/6,-0.7*5/6) coordinate (Relative) node[right] {$V_{rel}$};
+        \draw[<-, very thick, blue] (leading) -- ++(\rotational*\scalefactor,0) coordinate (Rotational) node[midway, above] {$\omega R (1+a')$};
+        \draw[<-, very thick, red] (leading) -- ++(0,-\axial*\scalefactor) node[above left] {$V_{0}(1-a)$};
+        \draw[<-, very thick, green!60!black] (leading) -- ++(\rotational*\scalefactor,-\axial*\scalefactor) coordinate (Relative) node[right] {$V_{rel}$};
+        \draw[dashed, thin, lightgray] (0,-\axial*\scalefactor) -- (Relative);
+        \draw[dashed, thin, lightgray] (\rotational*\scalefactor,0) -- (Relative);
         
         % 5. Mark the Angles
         % Flow angle \phi (between rotor plane and relative wind)
-        \pic [draw, "$\phi$", angle radius=3cm, angle eccentricity=1.1] {angle = Relative--leading--Rotational};
+        \pic [draw, "$\phi$", angle radius=4.5cm, angle eccentricity=1.1] {angle = Relative--leading--Rotational};
         
         % Twist angle \beta (between rotor plane and chord line)
-        \pic [draw, "$\beta$", angle radius=4.5cm, angle eccentricity=1.05] {angle = Chord--leading--Rotational};
+        \pic [draw, "$\beta$", angle radius=6.5cm, angle eccentricity=1.05] {angle = Chord--leading--Rotational};
         
         % Angle of attack \alpha (between chord line and relative wind)
-        \pic [draw, "$\alpha$", angle radius=4cm, angle eccentricity=1.05] {angle = Relative--leading--Chord};
+        \pic [draw, "$\alpha$", angle radius=6cm, angle eccentricity=1.05] {angle = Relative--leading--Chord};
 
     \end{tikzpicture}
     \caption{Sketch of wind turbine airfoil and velocity triangle (Aspect ratio 1:1).}
+    \label{fig:q2}
 \end{figure}
 
 \subsection{}
