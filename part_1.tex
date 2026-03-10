@@ -63,9 +63,7 @@ These two components define the velocity triangle shown in Figure~\ref{fig:q2}. 
         \def\scalefactor{5/6}  % drawing scale to keep figure compact
         \def\rotational{6}     % omega*R*(1+a') = 6 V_0
         \def\axial{0.7}        % V_0*(1-a) = 0.7 V_0
-
-        % Twist angle
-        \def\twistangle{-2.65}
+        \def\twistangle{-2.65} % beta = 2.65 deg
 
         % 2. Draw the Rotor Plane
         \draw[] (4,0) -- (-6,0) node[below right] {Rotor Plane};
@@ -105,6 +103,19 @@ These two components define the velocity triangle shown in Figure~\ref{fig:q2}. 
 
 \subsection{}
 
+For the conditions of Question~2, the flow angle $\phi$ is found from the velocity triangle using Eq.~(3) at the tip ($x = \lambda$):
+%
+\begin{equation*}
+    \phi = \arctan\!\left(\frac{V_0(1-a)}{\omega R(1+a')}\right) = \arctan\!\left(\frac{0.7\,V_0}{6\,V_0}\right) = \arctan\!\left(\frac{0.7}{6}\right) = 6.65^\circ
+\end{equation*}
+
+To achieve an angle of attack of $\alpha = 4^\circ$, the required twist angle $\beta$ follows from the relation $\phi = \alpha + \beta$:
+%
+\begin{equation*}
+    \beta = \phi - \alpha = 6.65^\circ - 4^\circ = 2.65^\circ
+\end{equation*}
+
+The angles $\alpha$ and $\beta$ are marked on the drawing in Figure~\ref{fig:q2}.
 
 \subsection{}
 
