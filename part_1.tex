@@ -8,15 +8,16 @@
     \centering
     \begin{tikzpicture}
         % Load the PDF image
-        \node[anchor=south west, inner sep=0] (image) at (0,0) {\includegraphics[width=0.8\textwidth]{airfoil.pdf}};
+        \node[anchor=south west, inner sep=0] (image) at (0,0) {\includegraphics[width=0.8\textwidth]{plot-sd7003-il-40.pdf}};
         
         % Create a coordinate system based on the image size
         \begin{scope}[x={(image.south east)},y={(image.north west)}]
             
             % Add annotations
-            \draw[latex-, thick] (0.02, 0.5) -- (-0.1, 0.6) node[left] {Leading Edge};
-            \draw[latex-, thick] (0.98, 0.5) -- (1.1, 0.5) node[right] {Trailing Edge};
-            \node at (0.5, 0.6) {Suction Side};
+            \draw[latex-, thick] (0.03, 0.55) -- (-0.01, 0.7) node[left] {Leading Edge};
+            \draw[latex-, thick] (0.96, 0.55) -- (0.9, 0.1) node[left] {Trailing Edge};
+            \draw[latex-, thick] (0.35, 0.62) -- (0.5, 1.05) node[right] {Camber line};
+            \draw[latex-, thick] (0.15, 0.54) -- (-0.01, 0.25) node[left] {Cord Line};
             
             % Helper grid (delete this once you find your coordinates)
             % \draw[help lines, step=0.1] (0,0) grid (1,1);
@@ -24,3 +25,59 @@
     \end{tikzpicture}
     \caption{Annotated Airfoil Profile.}
 \end{figure}
+
+\subsection{}
+
+\usetikzlibrary{angles, quotes}
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[scale=1.5, x=1cm, y=1cm]
+        
+        % 1. Define main coordinates for the velocity triangle
+        \coordinate (Origin) at (0,0);
+        \coordinate (Rotational) at (4,0);
+        \coordinate (Relative) at (4,0.7);
+        
+        % Twist angle
+        \def\twistangle{-20}
+        
+        % 2. Draw the Rotor Plane
+        \draw[thick] (3,0) -- (-3.5,0) node[left] {Rotor Plane};
+        
+        % 3. Draw the Airfoil and Chord Line (Rotated by \beta)
+        \begin{scope}[rotate=\twistangle]
+            % Chord line
+            \draw[dashed, gray] (-4.5, 0) -- (2, 0) coordinate (Chord);
+            node[left, text=gray] at (Chord) {Chord Line};
+            
+            % Generic airfoil shape
+            \draw[thick, fill=gray!10] (0, 0) coordinate (leading)
+                .. controls (0, 0.4) and (-2.7, 0.6) .. (-5.2, 0)  % Upper surface
+                .. controls (-2.7, -0.1) and (0, -0.3) .. (0, 0); % Lower surface
+        \end{scope}
+
+        % 4. Draw the Velocity Triangle
+        \draw[<-, thick, blue] (leading) -- ++(3,0) coordinate (test2) node[midway, above] {$U_{rot}$};
+        \draw[<-, thick, red] (leading) -- ++(0,-0.35) node[midway, left] {$U_{in}$};
+        \draw[<-, thick, green!60!black] (leading) -- ++(3,-0.35) coordinate (test) node[midway, above right] {$U_{rel}$};
+        
+        % 5. Mark the Angles
+        % Flow angle \phi (between rotor plane and relative wind)
+        \pic [draw, "$\phi$", angle radius=2.5cm, angle eccentricity=1.1] {angle = Rotational--Origin--Relative};
+        
+        % Twist angle \beta (between rotor plane and chord line)
+        % Create a coordinate on the rotor plane to measure from
+        \coordinate (RotPlaneEnd) at (4,0);
+        \pic [draw, "$\beta$", angle radius=2cm, angle eccentricity=1.05] {angle = test--leading--test2};
+        
+        % Angle of attack \alpha (between chord line and relative wind)
+        \pic [draw, "$\alpha$", angle radius=5cm, angle eccentricity=1.05] {angle = Chord--Origin--Relative};
+
+    \end{tikzpicture}
+    \caption{Sketch of wind turbine airfoil and velocity triangle (Aspect ratio 1:1).}
+\end{figure}
+
+\subsection{}
+
+\end{document}
